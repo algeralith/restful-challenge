@@ -3,7 +3,6 @@ package com.github.algeralith.service;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-
 import io.quarkus.logging.Log;
 
 public abstract class EntityCrudService<T> {
@@ -22,10 +21,18 @@ public abstract class EntityCrudService<T> {
 
     @Transactional
     public T createEntity(T entity) {
+        Log.infof("createEntity() : %s ", entity != null ? entity.toString() : "Null entity.");
+
+        // Just return null if we received null. No point in letting it go to persist and erroring out there.
+        if (entity == null)
+            return null;
+
         try {
             entityManager.persist(entity);
         } catch (Exception e) {
-            Log.info("Failed to persist Entity.");
+            Log.errorf("createEntity() : Failed to persisty entity.");
+            Log.error(e);
+
             return null;
         }
 
@@ -33,6 +40,7 @@ public abstract class EntityCrudService<T> {
     }
 
     public T getEntity(long id) {
+        Log.infof("getEntity() : %d", id);
         return entityManager.find(type, id);
     }
 
@@ -41,16 +49,22 @@ public abstract class EntityCrudService<T> {
         try {
             return (T)entityManager.merge(entity);
         } catch (Exception e) {
-            Log.info("Failed to update Entity.");;
+            Log.errorf("updateEntity() : Failed to update Entity.");
+            Log.error(e);
         }
 
         return null;
     }
 
+    @Transactional
     public boolean deleteEntity(long id) {
         try {
+            Log.infof("deleteEntity() : %d", id);
+
             // Query for entity.
             T entity = getEntity(id);
+
+            Log.debugf("deleteEntity() : %s ", entity != null ? entity.toString() : "Null entity.");
 
             // Return false if not found. After all, you can not delete something that does not exist.
             if (entity == null) {
@@ -65,7 +79,8 @@ public abstract class EntityCrudService<T> {
 
             return true;
         } catch (Exception e) {
-            // TODO :: Log failure.
+            Log.errorf("deleteEntity() : %d : failed to delete entity.", id);
+            Log.error(e);
         }
 
         return false;
