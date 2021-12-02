@@ -1,8 +1,7 @@
 package com.github.algeralith.entity;
 
-import javax.persistence.*;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.persistence.*;
 
 @Entity
 @Table(name="Products")
@@ -18,7 +17,7 @@ public class Product {
     @Column(name="description")
     private String description;
 
-    @OneToOne // A product may only belong to one Album, and one album belongs to only one product. One-to-one relationship.
+    @OneToOne()
     private Album album;
 
     public Product() {

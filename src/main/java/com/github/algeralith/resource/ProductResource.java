@@ -7,6 +7,7 @@ import io.quarkus.logging.Log;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -43,6 +44,11 @@ public class ProductResource {
 
         Log.infof("create() : product succesfully persisted : %s", savedProduct.toString());
 
+        // Prevent a recursive nightmare. Clear images so it does not print it's albums.
+        for (Image image : savedProduct.getAlbum().getImages()) {
+            image.getAlbums().clear();
+        }
+
         return Response.ok(savedProduct).status(Response.Status.OK).build();
     }
 
@@ -58,16 +64,46 @@ public class ProductResource {
 
         if (product == null) {
             return Response.ok().status(Response.Status.NOT_FOUND).build();
-        } else 
+        } else {
+
+            // Prevent a recursive nightmare. Clear images so it does not print it's albums.
+            for (Image image : product.getAlbum().getImages()) {
+                image.getAlbums().clear();
+            }
+
             return Response.ok(product).status(Response.Status.OK).build();
+        }
     }
 
     @PUT
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update() {
-        return Response.ok().status(Response.Status.NOT_IMPLEMENTED).build();
+    @Transactional
+    public Response update(@PathParam("id") long id, Product product) {        
+        Log.infof("update() : id: %d : %s", id, product.toString());
+
+        // Set the ID and send off to be updated.
+        product.setId(id);
+
+        product = productService.updateEntity(product);
+
+        Log.infof("update() : product updated : %s", product != null ? product.toString() : "Null product.");
+
+        if (product == null)
+            return Response.ok().status(Response.Status.BAD_REQUEST).build();
+        else {
+            // product.getAlbum().getImages().clear();
+            // Update product so we have the new album data.
+            product = productService.getEntity(product.getId());
+
+            // Prevent a recursive nightmare. Clear images so it does not print it's albums.
+            for (Image image : product.getAlbum().getImages()) {
+                image.getAlbums().clear();
+            }
+
+            return Response.ok(product).status(Response.Status.OK).build();
+        }
     }
 
     @DELETE

@@ -7,6 +7,7 @@ import io.quarkus.logging.Log;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -73,6 +74,7 @@ public class ImageResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
     public Response update(@PathParam("id") long id, Image image) {
         Log.infof("update() : id: %d : %s", id, image.toString());
 
@@ -90,7 +92,7 @@ public class ImageResource {
             for(Album a : image.getAlbums()) {
                 a.getImages().clear();
             }
-            
+
             return Response.ok(image).status(Response.Status.OK).build();
         }
     }

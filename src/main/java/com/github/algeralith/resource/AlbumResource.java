@@ -7,6 +7,7 @@ import io.quarkus.logging.Log;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -99,8 +100,27 @@ public class AlbumResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update() {
-        return Response.ok().status(Response.Status.NOT_IMPLEMENTED).build();
+    @Transactional
+    public Response update(@PathParam("id") long id, Album album) {
+        Log.infof("update() : id: %d : %s", id, album.toString());
+
+        // Set the ID and send off to be updated.
+        album.setId(id);
+
+        album = albumService.updateEntity(album);
+
+        Log.infof("update() : image updated : %s", album != null ? album.toString() : "Null album.");
+
+        if (album == null)
+            return Response.ok().status(Response.Status.BAD_REQUEST).build();
+        else {
+            // Clear the album property, just to prevent a recursive nightmare.
+            for (Image image : album.getImages()) {
+                image.albums.clear();
+            }
+            
+            return Response.ok(album).status(Response.Status.OK).build();
+        }
     }
 
     @DELETE
