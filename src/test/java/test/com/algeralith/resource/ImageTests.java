@@ -10,10 +10,10 @@ import javax.ws.rs.core.*;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 
-
 @QuarkusTest
 @TestHTTPEndpoint(ImageResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Order(1)
 public class ImageTests {
 
     @Test
@@ -60,6 +60,30 @@ public class ImageTests {
         given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().post().then()
         .statusCode(Response.Status.OK.getStatusCode())
         .body("id", equalTo(4),
+            "title", equalTo(image.getTitle()),
+            "description", equalTo(image.getDescription())
+        );
+
+
+        // We'll leave 5 and 6 lingering around for other tests.
+        image = new Image();
+        image.setTitle("Title 5");
+        image.setDescription("Description 5");
+        
+        given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().post().then()
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(5),
+            "title", equalTo(image.getTitle()),
+            "description", equalTo(image.getDescription())
+        );
+
+        image = new Image();
+        image.setTitle("Title 6");
+        image.setDescription("Description 6");
+        
+        given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().post().then()
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(6),
             "title", equalTo(image.getTitle()),
             "description", equalTo(image.getDescription())
         );

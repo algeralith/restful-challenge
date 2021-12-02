@@ -109,7 +109,7 @@ public class AlbumResource {
 
         album = albumService.updateEntity(album);
 
-        Log.infof("update() : image updated : %s", album != null ? album.toString() : "Null album.");
+        Log.infof("update() : album updated : %s", album != null ? album.toString() : "Null album.");
 
         if (album == null)
             return Response.ok().status(Response.Status.BAD_REQUEST).build();

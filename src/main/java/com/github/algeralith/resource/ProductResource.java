@@ -45,8 +45,10 @@ public class ProductResource {
         Log.infof("create() : product succesfully persisted : %s", savedProduct.toString());
 
         // Prevent a recursive nightmare. Clear images so it does not print it's albums.
-        for (Image image : savedProduct.getAlbum().getImages()) {
-            image.getAlbums().clear();
+        if (savedProduct.getAlbum() != null) {
+            for (Image image : savedProduct.getAlbum().getImages()) {
+                image.getAlbums().clear();
+            }
         }
 
         return Response.ok(savedProduct).status(Response.Status.OK).build();
@@ -67,8 +69,10 @@ public class ProductResource {
         } else {
 
             // Prevent a recursive nightmare. Clear images so it does not print it's albums.
-            for (Image image : product.getAlbum().getImages()) {
-                image.getAlbums().clear();
+            if (product.getAlbum() != null) {
+                for (Image image : product.getAlbum().getImages()) {
+                    image.getAlbums().clear();
+                }
             }
 
             return Response.ok(product).status(Response.Status.OK).build();
@@ -98,8 +102,10 @@ public class ProductResource {
             product = productService.getEntity(product.getId());
 
             // Prevent a recursive nightmare. Clear images so it does not print it's albums.
-            for (Image image : product.getAlbum().getImages()) {
-                image.getAlbums().clear();
+            if (product.getAlbum() != null) {
+                for (Image image : product.getAlbum().getImages()) {
+                    image.getAlbums().clear();
+                }
             }
 
             return Response.ok(product).status(Response.Status.OK).build();
