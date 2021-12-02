@@ -29,7 +29,7 @@ public class ImageResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(Image image) {
-        Log.infof("create() : %s", image != null ? image.toString() : "Null image." );
+        Log.infof("create() : %s", image != null ? image.toString() : "Null image.");
 
         Image savedImage = imageService.createEntity(image);
 
@@ -54,7 +54,7 @@ public class ImageResource {
         Log.infof("read() : %s", image != null ? image.toString() : "Null image.");
 
         if (image == null) {
-            return Response.ok(image).status(Response.Status.NOT_FOUND).build();
+            return Response.ok().status(Response.Status.NOT_FOUND).build();
         } else 
             return Response.ok(image).status(Response.Status.OK).build();
     }

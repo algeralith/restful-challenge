@@ -45,4 +45,18 @@ public class Album {
         return images;
     }
 
+    @Override
+    public String toString()
+    {
+        String value = "";
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try  {
+            value = objectMapper.writeValueAsString(this);
+        } catch (Exception e) {
+        }
+
+        return value;
+    }
+
 }

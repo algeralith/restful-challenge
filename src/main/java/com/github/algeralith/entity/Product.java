@@ -2,6 +2,8 @@ package com.github.algeralith.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Entity
 public class Product {
 
@@ -46,6 +48,20 @@ public class Product {
 
     public Album getAlbum()  {
         return album;
+    }
+
+    @Override
+    public String toString()
+    {
+        String value = "";
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try  {
+            value = objectMapper.writeValueAsString(this);
+        } catch (Exception e) {
+        }
+
+        return value;
     }
 
 }
