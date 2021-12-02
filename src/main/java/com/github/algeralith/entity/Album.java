@@ -1,23 +1,25 @@
 package com.github.algeralith.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
+@Table(name="Albums")
 public class Album {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-
+    @Column(name="description")
     private String description;
 
-    @OneToMany // An Album contains many images. Thus, one-to-many relationship.
-    private List<Image> images;
+    @OneToMany(fetch = FetchType.EAGER) // An Album contains many images. Thus, one-to-many relationship.
+    @JoinColumn(name = "album_image_id", referencedColumnName = "id")
+    private List<Image> images = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -25,14 +27,6 @@ public class Album {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDescription() {

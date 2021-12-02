@@ -1,23 +1,28 @@
 package com.github.algeralith.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
+@Table(name="Images")
 public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="title")
     private String title;
 
+    @Column(name="description")
     private String description;
 
-    @ManyToMany // Multiple albums can reference the same image. Therefore, this should be a many-to-many relationship.
-    public List<Album> albums; // TODO :: Let this use the same FK as the OneToOne for Product to album.
+    @ManyToMany(fetch = FetchType.LAZY) // Multiple albums can reference the same image. Therefore, this should be a many-to-many relationship.
+    @JoinColumn(name = "image_album_id", referencedColumnName = "id")
+    public List<Album> albums = new ArrayList<>();
 
     public Long getId() {
         return id;

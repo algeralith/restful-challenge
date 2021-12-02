@@ -5,14 +5,17 @@ import javax.persistence.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
+@Table(name="Products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="name")
     private String name;
 
+    @Column(name="description")
     private String description;
 
     @OneToOne // A product may only belong to one Album, and one album belongs to only one product. One-to-one relationship.

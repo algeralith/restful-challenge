@@ -1,7 +1,7 @@
 package com.github.algeralith.resource;
 
-import com.github.algeralith.entity.Album;
-import com.github.algeralith.service.AlbumService;
+import com.github.algeralith.entity.*;
+import com.github.algeralith.service.*;
 
 import io.quarkus.logging.Log;
 
@@ -25,17 +25,40 @@ public class AlbumResource {
     @Inject
     AlbumService albumService;
 
+    @Inject
+    ImageService ImageService;
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(Album album) {        
         Log.infof("create() : %s", album != null ? album.toString() : "Null album.");
 
-        Album savedAlbum = albumService.createEntity(album);
+        // Loop through the images given and make sure the id exists.
+        // This is mostly done to avoid having a stack-trace printed to console.
+        // The following loop could be commented out if it is accceptable to have a trace print on every failure.
+        for (Image image : album.getImages()) {
+            image = ImageService.getEntity(image.getId());
+            if (image == null)
+                return Response.ok().status(Response.Status.BAD_REQUEST).build();
+        }
+
+        Album savedAlbum = null;
+
+        try {
+            savedAlbum = albumService.createEntity(album);
+
+            // Essentially, this line is just used to update the entity.
+            // That was we have all the images.
+            if (savedAlbum != null)
+                savedAlbum = albumService.getEntity(savedAlbum.getId());
+        } catch (Exception e) {
+            Log.error(e);
+        }
 
         if (savedAlbum == null) {
             Log.infof("create() : Failed to persist album.");
-            return Response.ok(savedAlbum).status(Response.Status.BAD_REQUEST).build();
+            return Response.ok().status(Response.Status.BAD_REQUEST).build();
         }
 
         Log.infof("create() : Album succesfully persisted : %s", savedAlbum.toString());
