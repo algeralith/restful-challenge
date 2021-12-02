@@ -1,12 +1,9 @@
 package com.github.algeralith.entity;
 
-import java.security.spec.ECFieldF2m;
 import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.vertx.core.json.impl.JsonUtil;
 
 @Entity
 public class Image {
@@ -59,9 +56,8 @@ public class Image {
         try  {
             value = objectMapper.writeValueAsString(this);
         } catch (Exception e) {
-
         }
-        
+
         return value;
     }
 }
