@@ -25,8 +25,8 @@ public class ImageTests {
         image.setDescription("Description 1");
         
         given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().post().then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(1),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(1),
             "title", equalTo(image.getTitle()),
             "description", equalTo(image.getDescription())
         );
@@ -36,8 +36,8 @@ public class ImageTests {
         image.setDescription("Description 2");
         
         given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().post().then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(2),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(2),
             "title", equalTo(image.getTitle()),
             "description", equalTo(image.getDescription())
         );
@@ -47,8 +47,8 @@ public class ImageTests {
         image.setDescription("Description 3");
         
         given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().post().then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(3),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(3),
             "title", equalTo(image.getTitle()),
             "description", equalTo(image.getDescription())
         );
@@ -58,8 +58,8 @@ public class ImageTests {
         image.setDescription("Description 4");
         
         given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().post().then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(4),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(4),
             "title", equalTo(image.getTitle()),
             "description", equalTo(image.getDescription())
         );
@@ -70,29 +70,29 @@ public class ImageTests {
       public void testImageRead() {
         // Check to see if we can return all resources as expected.
         given().when().get("/1").then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(1),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(1),
             "title", equalTo("Title 1"),
             "description", equalTo("Description 1")
         );
 
         given().when().get("/2").then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(2),            
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(2),            
             "title", equalTo("Title 2"),
             "description", equalTo("Description 2")
         );
 
         given().when().get("/3").then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(3),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(3),
             "title", equalTo("Title 3"),
             "description", equalTo("Description 3")
         );
 
         given().when().get("/4").then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(4),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(4),
             "title", equalTo("Title 4"),
             "description", equalTo("Description 4")
         );
@@ -108,8 +108,8 @@ public class ImageTests {
         image.setDescription("Updated Description 1");
         
         given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().put("/1").then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(1),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(1),
             "title", equalTo(image.getTitle()),
             "description", equalTo(image.getDescription())
         );
@@ -119,8 +119,8 @@ public class ImageTests {
         image.setDescription("Updated Description 2");
         
         given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().put("/2").then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(2),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(2),
             "title", equalTo(image.getTitle()),
             "description", equalTo(image.getDescription())
         );
@@ -130,8 +130,8 @@ public class ImageTests {
         image.setDescription("Updated Description 3");
         
         given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().put("/3").then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(3),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(3),
             "title", equalTo(image.getTitle()),
             "description", equalTo(image.getDescription())
         );
@@ -141,13 +141,11 @@ public class ImageTests {
         image.setDescription("Updated Description 4");
         
         given().contentType(MediaType.APPLICATION_JSON).body(image.toString()).when().put("/4").then()
-        .statusCode(Response.Status.OK.getStatusCode()).
-        body("id", equalTo(4),
+        .statusCode(Response.Status.OK.getStatusCode())
+        .body("id", equalTo(4),
             "title", equalTo(image.getTitle()),
             "description", equalTo(image.getDescription())
         );
-        
-
       }
 
       @Test
