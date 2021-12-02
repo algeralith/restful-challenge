@@ -63,6 +63,13 @@ public class AlbumResource {
 
         Log.infof("create() : Album succesfully persisted : %s", savedAlbum.toString());
 
+        // Clear the album property, just to prevent a recursive nightmare.
+        // If given more time, there probably is a better solution.
+        // Still learning JPA.
+        for (Image image : savedAlbum.getImages()) {
+            image.albums.clear();
+        }
+
         return Response.ok(savedAlbum).status(Response.Status.OK).build();
     }
 
@@ -78,8 +85,14 @@ public class AlbumResource {
 
         if (album == null) {
             return Response.ok().status(Response.Status.NOT_FOUND).build();
-        } else 
+        } else  {
+            // Clear the album property, just to prevent a recursive nightmare.
+            for (Image image : album.getImages()) {
+                image.albums.clear();
+            }
+
             return Response.ok(album).status(Response.Status.OK).build();
+        }
     }
 
     @PUT

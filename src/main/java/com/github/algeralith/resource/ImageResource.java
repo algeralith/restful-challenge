@@ -40,6 +40,11 @@ public class ImageResource {
 
         Log.infof("create() : Image succesfully persisted : %s", savedImage.toString());
 
+        // Clear images to prevent recursive nightmare.
+        for(Album a : image.getAlbums()) {
+            a.getImages().clear();
+        }
+
         return Response.ok(savedImage).status(Response.Status.OK).build();
     }
 
@@ -56,6 +61,11 @@ public class ImageResource {
         if (image == null) {
             return Response.ok().status(Response.Status.NOT_FOUND).build();
         } else 
+            // Clear images to prevent recursive nightmare.
+            for(Album a : image.getAlbums()) {
+                a.getImages().clear();
+            }
+
             return Response.ok(image).status(Response.Status.OK).build();
     }
 
@@ -66,7 +76,7 @@ public class ImageResource {
     public Response update(@PathParam("id") long id, Image image) {
         Log.infof("update() : id: %d : %s", id, image.toString());
 
-        // Set the ID and send off the be updated.
+        // Set the ID and send off to be updated.
         image.setId(id);
 
         image = imageService.updateEntity(image);
@@ -75,8 +85,14 @@ public class ImageResource {
 
         if (image == null)
             return Response.ok().status(Response.Status.BAD_REQUEST).build();
-        else
+        else {
+            // Clear images to prevent recursive nightmare.
+            for(Album a : image.getAlbums()) {
+                a.getImages().clear();
+            }
+            
             return Response.ok(image).status(Response.Status.OK).build();
+        }
     }
 
     @DELETE

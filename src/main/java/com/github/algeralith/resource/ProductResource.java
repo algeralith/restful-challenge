@@ -38,6 +38,9 @@ public class ProductResource {
             return Response.ok().status(Response.Status.BAD_REQUEST).build();
         }
 
+        // Update product so that it will have image information when returning.
+        savedProduct = productService.getEntity(savedProduct.getId());
+
         Log.infof("create() : product succesfully persisted : %s", savedProduct.toString());
 
         return Response.ok(savedProduct).status(Response.Status.OK).build();

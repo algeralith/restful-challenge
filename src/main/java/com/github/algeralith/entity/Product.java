@@ -21,6 +21,14 @@ public class Product {
     @OneToOne // A product may only belong to one Album, and one album belongs to only one product. One-to-one relationship.
     private Album album;
 
+    public Product() {
+
+    }
+
+    public Product(long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

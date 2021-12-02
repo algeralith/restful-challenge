@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
@@ -20,9 +26,15 @@ public class Image {
     @Column(name="description")
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY) // Multiple albums can reference the same image. Therefore, this should be a many-to-many relationship.
-    @JoinColumn(name = "image_album_id", referencedColumnName = "id")
+    @ManyToMany(mappedBy = "images")
     public List<Album> albums = new ArrayList<>();
+
+    public Image() {
+    }
+
+    public Image(long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -50,6 +62,14 @@ public class Image {
 
     public List<Album> getAlbums() {
         return albums;
+    }
+
+    public void addAlbum(Album album) {
+        albums.add(album);
+    }
+
+    public void removeAlbum(Album album) {
+        albums.remove(album);
     }
 
     @Override

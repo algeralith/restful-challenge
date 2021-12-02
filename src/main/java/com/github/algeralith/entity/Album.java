@@ -4,10 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name="Albums")
+@JsonIdentityInfo(
+   generator = ObjectIdGenerators.PropertyGenerator.class,
+   property = "id")
 public class Album {
 
     @Id
@@ -17,9 +26,15 @@ public class Album {
     @Column(name="description")
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER) // An Album contains many images. Thus, one-to-many relationship.
-    @JoinColumn(name = "album_image_id", referencedColumnName = "id")
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Image> images = new ArrayList<>();
+
+    public Album() {
+    }
+    
+    public Album(long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
