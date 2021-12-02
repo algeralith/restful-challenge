@@ -1,0 +1,215 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Syndic8 RESTful Challenge",
+		"_postman_id": "57f0a1b8-c112-375d-80e4-38b67318c28f",
+		"description": "A collection of RestFUL calls for the challenge problem sent by Syndic8.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Images",
+			"description": "API calls for images.",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/images",
+					"request": {
+						"url": "http://localhost:8080/api/images",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n\t\"title\" : \"Test Image\",  \r\n\t\"description\" : \"Test Description\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/images/1",
+					"request": {
+						"url": "http://localhost:8080/api/images/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/images/1",
+					"request": {
+						"url": "http://localhost:8080/api/images/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n\t\"title\" : \"Test Image Updated\",  \r\n\t\"description\" : \"Test Description Updated\",\r\n\t\"albums\" : []\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/images/1",
+					"request": {
+						"url": "http://localhost:8080/api/images/1",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Album",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/albums",
+					"request": {
+						"url": "http://localhost:8080/api/albums",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n\t\"description\" : \"Test Album\",  \r\n\t\"images\" : [1 , 2, 3]\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/album/1",
+					"request": {
+						"url": "http://localhost:8080/api/albums/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/albums/1",
+					"request": {
+						"url": "http://localhost:8080/api/images/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n\t\"title\": \"Test Image Updated\",  \r\n\t\"description\": \"Test Description Updated\",\r\n\t\"albums\": []\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/albums/1",
+					"request": {
+						"url": "http://localhost:8080/api/albums/1",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/products",
+					"request": {
+						"url": "http://localhost:8080/api/products",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n\t\"name\" : \"Test Name\",  \r\n\t\"description\" : \"Test Description\",\r\n\t\"album\" : 1\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/products/1",
+					"request": {
+						"url": "http://localhost:8080/api/products/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/products/1",
+					"request": {
+						"url": "http://localhost:8080/api/products/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n\t\"name\" : \"Updated Product Name\",  \r\n\t\"description\" : \"Updated Product Description\",\r\n\t\"album\" : {\r\n\t\t\"id\" : 1\r\n\t\t}\r\n\t}\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/products/1",
+					"request": {
+						"url": "http://localhost:8080/api/products/1",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
