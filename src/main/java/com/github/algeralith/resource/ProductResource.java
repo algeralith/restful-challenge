@@ -18,7 +18,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-@Path("/api/product")
+@Path("/api/products")
 @ApplicationScoped
 public class ProductResource {
 

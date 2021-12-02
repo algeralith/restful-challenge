@@ -3,6 +3,8 @@ package com.github.algeralith.entity;
 import java.util.List;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Entity
 public class Album {
 
