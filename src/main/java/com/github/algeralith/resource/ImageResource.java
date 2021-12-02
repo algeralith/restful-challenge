@@ -63,8 +63,20 @@ public class ImageResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update() {
-        return Response.ok().status(Response.Status.NOT_IMPLEMENTED).build();
+    public Response update(@PathParam("id") long id, Image image) {
+        Log.infof("update() : id: %d : %s", id, image.toString());
+
+        // Set the ID and send off the be updated.
+        image.setId(id);
+
+        image = imageService.updateEntity(image);
+
+        Log.infof("update() : image updated : %s", image != null ? image.toString() : "Null image.");
+
+        if (image == null)
+            return Response.ok().status(Response.Status.BAD_REQUEST).build();
+        else
+            return Response.ok(image).status(Response.Status.OK).build();
     }
 
     @DELETE
