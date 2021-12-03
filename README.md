@@ -37,7 +37,7 @@ POST /api/images
 
         {  
             "title" : "Image",  
-            "description" : "Image Descritpion"
+            "description" : "Image Description"
         }
 
     Example Response 
@@ -77,7 +77,7 @@ PUT /api/images/{id}
 
         {  
             "title" : "Updated Image",  
-            "description" : " Updated Image Descritpion"
+            "description" : "Updated Image Description"
         }
 
     Example Response 
@@ -85,7 +85,7 @@ PUT /api/images/{id}
         {
             "id": 1,
             "title" : "Updated Image",  
-            "description" : " Updated Image Descritpion"
+            "description" : " Updated Image Description"
             "albums": []
         }
 
@@ -203,7 +203,7 @@ POST /api/products
         "album" : {
             "id" : 1
         }
-	}
+    }
 
     Example Response 
     {
