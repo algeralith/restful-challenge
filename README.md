@@ -4,6 +4,8 @@ Building
 The server was coded in Quarkus, which requires the following to be installed on your system.
 
 JDK 11+
+
+
 Apache Maven 3.8.1+
 
 Once you have the environment set up, the problem can be compiled by exeucting the following commands.
