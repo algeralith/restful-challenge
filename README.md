@@ -1,4 +1,5 @@
 Building
+======
 
 The server was coded in Quarkus, which requires the following to be installed on your system.
 
@@ -14,8 +15,8 @@ Once that process has complete, use the following command in order to run the se
 java -jar target/quarkus-app/quarkus-run.jar
 
 
-
-
+Notes
+======
 The application makes use of H2 as its datasource. I currently it have it configured as a memory store, therefore data will disappear on relaunch of the application. It could be made persistent by using a flat file location, or even loading an alternative datasource like MySQL. Ideally, it would have been nice to have the tests make use of H2 mem database and configure a second datasource for persistent data.
 
 As for Database interaction, everything is done through JPA / Hibernate. I've worked briefly with JPA in the past, though I'm far from knowedgable one how to use it properly. There were a lot of issues I ran into, mostly related to recursion of Parent / Child relationships within my entities.
@@ -26,7 +27,9 @@ Now, for the API calls. The server listens on port 8080, so http://localhost:808
 All functions will return status code 200 on success and 400 on failure.
 
 
-/api/images
+
+http://localhost:8080/api/images
+======
 
 POST /api/images
 
@@ -34,7 +37,7 @@ POST /api/images
 
         {  
             "title" : "Image",  
-            "description" : "Image Descritpion"
+            "description" : "Image Description"
         }
 
     Example Response 
@@ -74,7 +77,7 @@ PUT /api/images/{id}
 
         {  
             "title" : "Updated Image",  
-            "description" : " Updated Image Descritpion"
+            "description" : "Updated Image Description"
         }
 
     Example Response 
@@ -82,7 +85,7 @@ PUT /api/images/{id}
         {
             "id": 1,
             "title" : "Updated Image",  
-            "description" : " Updated Image Descritpion"
+            "description" : " Updated Image Description"
             "albums": []
         }
 
@@ -93,7 +96,8 @@ DELETE /api/images/{id}
 
 
 
-/api/albums
+http://localhost:8080/api/albums
+=
 
 POST /api/albums
 
@@ -186,7 +190,8 @@ DELETE /api/albums/{id}
 
 
 
-/api/products
+http://localhost:8080/api/products
+=
 
 POST /api/products
 
@@ -198,7 +203,7 @@ POST /api/products
         "album" : {
             "id" : 1
         }
-	}
+    }
 
     Example Response 
     {
