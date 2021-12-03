@@ -1,9 +1,9 @@
 {
 	"variables": [],
 	"info": {
-		"name": "Syndic8 RESTful Challenge",
+		"name": "RESTful Challenge",
 		"_postman_id": "57f0a1b8-c112-375d-80e4-38b67318c28f",
-		"description": "A collection of RestFUL calls for the challenge problem sent by Syndic8.",
+		"description": "A collection of RestFUL calls for the challenge problem.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
@@ -113,7 +113,7 @@
 				{
 					"name": "http://localhost:8080/api/albums/1",
 					"request": {
-						"url": "http://localhost:8080/api/images/1",
+						"url": "http://localhost:8080/api/albums/1",
 						"method": "PUT",
 						"header": [
 							{
@@ -124,7 +124,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{  \r\n\t\"title\": \"Test Image Updated\",  \r\n\t\"description\": \"Test Description Updated\",\r\n\t\"albums\": []\r\n}"
+							"raw": "{  \n    \"description\": \"Updated Album Description\",\n    \"images\": [1, 5]\n}"
 						},
 						"description": ""
 					},
@@ -192,7 +192,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{  \r\n\t\"name\" : \"Updated Product Name\",  \r\n\t\"description\" : \"Updated Product Description\",\r\n\t\"album\" : {\r\n\t\t\"id\" : 1\r\n\t\t}\r\n\t}\r\n}"
+							"raw": "{  \r\n\t\"name\" : \"Updated Product Name\",  \r\n\t\"description\" : \"Updated Product Description\",\r\n\t\"album\" : 1\r\n\t}\r\n}"
 						},
 						"description": ""
 					},
