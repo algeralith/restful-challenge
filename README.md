@@ -27,6 +27,10 @@ Now, for the API calls. The server listens on port 8080, so http://localhost:808
 All functions will return status code 200 on success and 400 on failure.
 
 
+I included an export of a collection of sample calls from Postman.
+
+Testing typically started with creating images first, followed by albums, then products. As I mentioned previous, I decided not to do any sort of hard restraint in the order of creating things. So long as it's a valid ID entry, or empty, the server should accept it.
+
 
 http://localhost:8080/api/images
 ======
